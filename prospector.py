@@ -23,6 +23,9 @@ SEEN_FILE = "seen_links.txt"
 BAD_KEYWORDS_FILE = "bad_keywords.txt"
 
 SEARCHES = {
+    "Reverb Left-Handed Category": "https://reverb.com/marketplace?product_type=electric-guitars&category=left-handed&sort=published_at%7Cdesc&query=&condition=used",
+    "Reverb Left Keyword": "https://reverb.com/marketplace?query=left&product_type=electric-guitars&sort=published_at%7Cdesc&condition=used",
+
     "ESP Horizon": "https://reverb.com/marketplace?query=esp%20horizon%20left&product_type=electric-guitars&condition=used&sort=published_at%7Cdesc",
     "ESP Viper": "https://reverb.com/marketplace?query=esp%20viper%20left&product_type=electric-guitars&condition=used&sort=published_at%7Cdesc",
     "ESP Mirage": "https://reverb.com/marketplace?query=esp%20mirage%20left&product_type=electric-guitars&condition=used&sort=published_at%7Cdesc",
@@ -156,7 +159,7 @@ def get_listing_details(browser, link):
     }
 
     try:
-        listing_page = browser.new_page()
+        listing_page = browser.contexts[0].new_page()
         listing_page.goto(link, wait_until="domcontentloaded")
         listing_page.wait_for_timeout(3000)
 
@@ -321,7 +324,7 @@ def main():
     bad_keywords = load_file_lines(BAD_KEYWORDS_FILE)
 
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=False)
+        browser = p.chromium.launch(headless=False, args=["--start-minimized"])
         page = browser.new_page()
 
         while True:

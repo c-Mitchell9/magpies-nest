@@ -17,6 +17,9 @@ SEEN_FILE = "seen_links.txt"
 BAD_KEYWORDS_FILE = "bad_keywords.txt"
 
 SEARCHES = {
+    "Reverb Left-Handed Category": "https://reverb.com/marketplace?product_type=electric-guitars&category=left-handed&sort=published_at%7Cdesc",
+    "Reverb Left Keyword": "https://reverb.com/marketplace?query=left&product_type=electric-guitars&sort=published_at%7Cdesc",
+    
     "ESP Horizon": "https://reverb.com/marketplace?query=esp%20horizon%20left&product_type=electric-guitars&condition=used&sort=published_at%7Cdesc",
     "ESP Viper": "https://reverb.com/marketplace?query=esp%20viper%20left&product_type=electric-guitars&condition=used&sort=published_at%7Cdesc",
     "ESP Mirage": "https://reverb.com/marketplace?query=esp%20mirage%20left&product_type=electric-guitars&condition=used&sort=published_at%7Cdesc",
@@ -317,7 +320,7 @@ def main():
     total_new = 0
 
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=False)
+        browser = p.chromium.launch(headless=True)
         page = browser.new_page()
 
         for search_name, search_url in SEARCHES.items():
